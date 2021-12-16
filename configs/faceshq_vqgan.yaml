@@ -1,6 +1,6 @@
 model:
   base_learning_rate: 4.5e-6
-  target: taming.models.vqgan.VQModel
+  target: forks.taming_transformers.taming.models.vqgan.VQModel
   params:
     embed_dim: 256
     n_embed: 1024
@@ -17,7 +17,7 @@ model:
       dropout: 0.0
 
     lossconfig:
-      target: taming.modules.losses.vqperceptual.VQLPIPSWithDiscriminator
+      target: forks.taming_transformers.taming.modules.losses.vqperceptual.VQLPIPSWithDiscriminator
       params:
         disc_conditional: False
         disc_in_channels: 3
@@ -31,12 +31,12 @@ data:
     batch_size: 3
     num_workers: 8
     train:
-      target: taming.data.faceshq.FacesHQTrain
+      target: forks.taming_transformers.taming.data.faceshq.FacesHQTrain
       params:
         size: 256
         crop_size: 256
     validation:
-      target: taming.data.faceshq.FacesHQValidation
+      target: forks.taming_transformers.taming.data.faceshq.FacesHQValidation
       params:
         size: 256
         crop_size: 256

@@ -1,10 +1,10 @@
 model:
   base_learning_rate: 4.5e-06
-  target: taming.models.cond_transformer.Net2NetTransformer
+  target: forks.taming_transformers.taming.models.cond_transformer.Net2NetTransformer
   params:
     cond_stage_key: depth
     transformer_config:
-      target: taming.modules.transformer.mingpt.GPT
+      target: forks.taming_transformers.taming.modules.transformer.mingpt.GPT
       params:
         vocab_size: 1024
         block_size: 512
@@ -12,7 +12,7 @@ model:
         n_head: 16
         n_embd: 1024
     first_stage_config:
-      target: taming.models.vqgan.VQModel
+      target: forks.taming_transformers.taming.models.vqgan.VQModel
       params:
         ckpt_path: logs/2020-09-23T17-56-33_imagenet_vqgan/checkpoints/last.ckpt
         embed_dim: 256
@@ -35,9 +35,9 @@ model:
           - 16
           dropout: 0.0
         lossconfig:
-          target: taming.modules.losses.DummyLoss
+          target: forks.taming_transformers.taming.modules.losses.DummyLoss
     cond_stage_config:
-      target: taming.models.vqgan.VQModel
+      target: forks.taming_transformers.taming.models.vqgan.VQModel
       params:
         ckpt_path: logs/2020-11-03T15-34-24_imagenetdepth_vqgan/checkpoints/last.ckpt
         embed_dim: 256
@@ -60,7 +60,7 @@ model:
           - 16
           dropout: 0.0
         lossconfig:
-          target: taming.modules.losses.DummyLoss
+          target: forks.taming_transformers.taming.modules.losses.DummyLoss
 
 data:
   target: main.DataModuleFromConfig
@@ -68,10 +68,10 @@ data:
     batch_size: 2
     num_workers: 8
     train:
-      target: taming.data.imagenet.RINTrainWithDepth
+      target: forks.taming_transformers.taming.data.imagenet.RINTrainWithDepth
       params:
         size: 256
     validation:
-      target: taming.data.imagenet.RINValidationWithDepth
+      target: forks.taming_transformers.taming.data.imagenet.RINValidationWithDepth
       params:
         size: 256

@@ -1,6 +1,6 @@
 model:
   base_learning_rate: 4.5e-06
-  target: taming.models.vqgan.VQSegmentationModel
+  target: forks.taming_transformers.taming.models.vqgan.VQSegmentationModel
   params:
     embed_dim: 256
     n_embed: 1024
@@ -25,7 +25,7 @@ model:
       dropout: 0.0
 
     lossconfig:
-      target: taming.modules.losses.segmentation.BCELossWithQuant
+      target: forks.taming_transformers.taming.modules.losses.segmentation.BCELossWithQuant
       params:
         codebook_weight: 1.0
 
@@ -34,10 +34,10 @@ data:
   params:
     batch_size: 12
     train:
-      target: taming.data.sflckr.Examples # adjust
+      target: forks.taming_transformers.taming.data.sflckr.Examples # adjust
       params:
         size: 256
     validation:
-      target: taming.data.sflckr.Examples # adjust
+      target: forks.taming_transformers.taming.data.sflckr.Examples # adjust
       params:
         size: 256
