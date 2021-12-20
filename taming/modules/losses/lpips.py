@@ -6,7 +6,7 @@ import torch.nn as nn
 from torchvision import models
 from collections import namedtuple
 
-from forks.taming_transformers.taming.util import get_ckpt_path
+from taming.util import get_ckpt_path
 
 
 class LPIPS(nn.Module):
@@ -28,7 +28,8 @@ class LPIPS(nn.Module):
     def load_from_pretrained(self, name="vgg_lpips"):
         lpips_dir = os.path.dirname(os.path.abspath(__file__))
         modeling_cache_dir = os.path.join(
-            lpips_dir, "../../../../../geniverse/models/taming/.modeling_cache")
+            lpips_dir,
+            "../../../../../geniverse/models/taming/.modeling_cache")
 
         ckpt = get_ckpt_path(name, modeling_cache_dir)
         self.load_state_dict(
