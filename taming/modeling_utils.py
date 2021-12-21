@@ -18,9 +18,9 @@ VQGAN_CKPT_DICT = {
 }
 VQGAN_CONFIG_DICT = {
     "imagenet-16384":
-    r"https://raw.githubusercontent.com/vipermu/taming-transformers/master/configs/imagenet-16384.yaml",
+    r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/imagenet-16384.yaml",
     "openimages-8192":
-    r"https://raw.githubusercontent.com/vipermu/taming-transformers/master/configs/openimages-8192.yaml",
+    r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/openimages-8192.yaml",
 }
 
 
