@@ -1,4 +1,4 @@
-from modeling_utils import load_model
+from taming.modeling_utils import load_model
 
 
 def test():
