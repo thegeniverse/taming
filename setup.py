@@ -5,6 +5,6 @@ with open("requirements.txt", "r", encoding="utf-8") as req_file:
 
 setuptools.setup(
     name="taming",
-    packages=["taming"],
+    packages=setuptools.find_packages(),
     install_requires=requirements_list,
 )
