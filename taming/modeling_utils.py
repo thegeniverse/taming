@@ -15,12 +15,16 @@ VQGAN_CKPT_DICT = {
     r"https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
     "openimages-8192":
     r"https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
+    "ffhq":
+    r"https://app.koofr.net/content/links/0fc005bf-3dca-4079-9d40-cdf38d42cd7a/files/get/last.ckpt?path=%2F2021-04-23T18-19-01_ffhq_transformer%2Fcheckpoints%2Flast.ckpt",
 }
 VQGAN_CONFIG_DICT = {
     "imagenet-16384":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/imagenet-16384.yaml",
     "openimages-8192":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/openimages-8192.yaml",
+    "ffhq":
+    r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/ffhq.yaml",
 }
 
 
@@ -88,7 +92,17 @@ def load_model(model_name: str = "imagenet-16384", ):
         logging.info(
             f"Downloading pre-trained weights for VQ-GAN from {modeling_ckpt_url}"
         )
-        results = requests.get(modeling_ckpt_url, allow_redirects=True)
+        session = requests.session()
+        if "ffhq" in modeling_ckpt_url:
+            session.headers.update({
+                'referer':
+                "https://app.koofr.net/links/0fc005bf-3dca-4079-9d40-cdf38d42cd7a?path=%2F2021-04-23T18-19-01_ffhq_transformer%2Fcheckpoints",
+            })
+
+        results = session.get(
+            modeling_ckpt_url,
+            allow_redirects=True,
+        )
 
         with open(modeling_ckpt_path, "wb") as ckpt_file:
             ckpt_file.write(results.content)
