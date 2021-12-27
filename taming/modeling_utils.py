@@ -44,8 +44,6 @@ def load_vqgan(
     """
     if "GumbelVQ" in config.model.target:
         model = GumbelVQ(**config.model.params)
-    if "Net2NetTransformer" in config.model.target:
-        model = Net2NetTransformer(**config.model.params)
     else:
         model = VQModel(**config.model.params)
 
