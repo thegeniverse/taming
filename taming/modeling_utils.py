@@ -16,16 +16,12 @@ VQGAN_CKPT_DICT = {
     r"https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
     "openimages-8192":
     r"https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
-    "ffhq":
-    r"https://app.koofr.net/content/links/0fc005bf-3dca-4079-9d40-cdf38d42cd7a/files/get/last.ckpt?path=%2F2021-04-23T18-19-01_ffhq_transformer%2Fcheckpoints%2Flast.ckpt",
 }
 VQGAN_CONFIG_DICT = {
     "imagenet-16384":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/imagenet-16384.yaml",
     "openimages-8192":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/openimages-8192.yaml",
-    "ffhq":
-    r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/ffhq.yaml",
 }
 
 
@@ -84,6 +80,8 @@ def load_config(
 
 
 def load_model(model_name: str = "imagenet-16384", ):
+    logging.info(f"Loading {model_name}")
+
     modeling_dir = os.path.dirname(os.path.abspath(__file__))
     modeling_cache_dir = os.path.join(modeling_dir, ".modeling_cache")
     os.makedirs(modeling_cache_dir, exist_ok=True)
