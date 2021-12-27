@@ -3,7 +3,7 @@ from taming.modeling_utils import load_model
 
 def test():
     try:
-        model_name = "ffhq"
+        model_name = "openimages-8192"
         model = load_model(model_name=model_name, )
         print("OK 👌")
 
