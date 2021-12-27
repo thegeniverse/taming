@@ -7,6 +7,7 @@ import yaml
 import requests
 
 from taming.models.vqgan import VQModel, GumbelVQ
+from taming.models.cond_transformer import Net2NetTransformer
 
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 
@@ -47,6 +48,8 @@ def load_vqgan(
     """
     if "GumbelVQ" in config.model.target:
         model = GumbelVQ(**config.model.params)
+    if "Net2NetTransformer" in config.model.target:
+        model = Net2NetTransformer(**config.model.params)
     else:
         model = VQModel(**config.model.params)
 
