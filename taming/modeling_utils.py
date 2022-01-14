@@ -77,12 +77,27 @@ def load_config(
     return config
 
 
-def load_model(model_name: str = "imagenet-16384", ):
-    logging.info(f"Loading {model_name}")
-
+def download_model(
+    model_name: str = "imagenet-16384",
+    force: bool = False,
+):
     modeling_dir = os.path.dirname(os.path.abspath(__file__))
     modeling_cache_dir = os.path.join(modeling_dir, ".modeling_cache")
     os.makedirs(modeling_cache_dir, exist_ok=True)
+
+    modeling_config_path = os.path.join(modeling_cache_dir,
+                                        f'{model_name}.yaml')
+    if not os.path.exists(modeling_config_path):
+        modeling_config_url = VQGAN_CONFIG_DICT[model_name]
+
+        logging.info(
+            f"Downloading `{model_name}.yaml` from {modeling_config_url}")
+        response = requests.get(modeling_config_url, allow_redirects=True)
+
+        assert response.ok, "Error downloading config!"
+
+        with open(modeling_config_path, "wb") as yaml_file:
+            yaml_file.write(response.content)
 
     modeling_ckpt_path = os.path.join(modeling_cache_dir, f'{model_name}.ckpt')
     if not os.path.exists(modeling_ckpt_path):
@@ -98,27 +113,21 @@ def load_model(model_name: str = "imagenet-16384", ):
                 "https://app.koofr.net/links/0fc005bf-3dca-4079-9d40-cdf38d42cd7a?path=%2F2021-04-23T18-19-01_ffhq_transformer%2Fcheckpoints",
             })
 
-        results = session.get(
+        response = session.get(
             modeling_ckpt_url,
             allow_redirects=True,
         )
 
+        assert response.ok, "Error downloading pre-trained weights!"
+
         with open(modeling_ckpt_path, "wb") as ckpt_file:
-            ckpt_file.write(results.content)
+            ckpt_file.write(response.content)
 
-    # TODO: update the url with our own config using the correct paths
-    modeling_config_path = os.path.join(modeling_cache_dir,
-                                        f'{model_name}.yaml')
-    if not os.path.exists(modeling_config_path):
-        modeling_config_url = VQGAN_CONFIG_DICT[model_name]
+    return modeling_config_path, modeling_ckpt_path
 
-        logging.info(
-            f"Downloading `{model_name}.yaml` from vipermu taming-transformers fork"
-        )
-        results = requests.get(modeling_config_url, allow_redirects=True)
 
-        with open(modeling_config_path, "wb") as yaml_file:
-            yaml_file.write(results.content)
+def load_model(model_name: str = "imagenet-16384", ):
+    logging.info(f"Loading {model_name}")
 
     vqgan_config = load_config(
         config_path=modeling_config_path,
