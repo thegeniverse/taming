@@ -79,7 +79,7 @@ def load_config(
 
 def download_model(
     model_name: str = "imagenet-16384",
-    force: bool = False,
+    force_download: bool = False,
 ):
     modeling_dir = os.path.dirname(os.path.abspath(__file__))
     modeling_cache_dir = os.path.join(modeling_dir, ".modeling_cache")
@@ -87,7 +87,7 @@ def download_model(
 
     modeling_config_path = os.path.join(modeling_cache_dir,
                                         f'{model_name}.yaml')
-    if not os.path.exists(modeling_config_path):
+    if not os.path.exists(modeling_config_path) or force_download:
         modeling_config_url = VQGAN_CONFIG_DICT[model_name]
 
         logging.info(
@@ -100,7 +100,7 @@ def download_model(
             yaml_file.write(response.content)
 
     modeling_ckpt_path = os.path.join(modeling_cache_dir, f'{model_name}.ckpt')
-    if not os.path.exists(modeling_ckpt_path):
+    if not os.path.exists(modeling_ckpt_path) or force_download:
         modeling_ckpt_url = VQGAN_CKPT_DICT[model_name]
 
         logging.info(
@@ -128,6 +128,11 @@ def download_model(
 
 def load_model(model_name: str = "imagenet-16384", ):
     logging.info(f"Loading {model_name}")
+
+    modeling_config_path, modeling_ckpt_path = download_model(
+        model_name,
+        force_download=False,
+    )
 
     vqgan_config = load_config(
         config_path=modeling_config_path,
