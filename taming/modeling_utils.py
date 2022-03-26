@@ -17,6 +17,7 @@ VQGAN_CKPT_DICT = {
     "openimages-8192":
     r"https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
     "sber": r"https://www.dropbox.com/s/9tzfjsuf78xg4g9/sber.ckpt?dl=1",
+    "wikiart_16384": r"http://eaidata.bmk.sh/data/Wikiart_16384/wikiart_f16_16384_8145600.ckpt",
 }
 VQGAN_CONFIG_DICT = {
     "imagenet-16384":
@@ -25,6 +26,7 @@ VQGAN_CONFIG_DICT = {
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/openimages-8192.yaml",
     "sber":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/sber.yaml",
+    "wikiart_16384": r"http://eaidata.bmk.sh/data/Wikiart_16384/wikiart_f16_16384_8145600.yaml",
 }
 
 

@@ -9,7 +9,8 @@ from taming.modeling_utils import load_model
 
 
 def generation(img: PIL.Image, ):
-    model_name = "sber"
+    # model_name = "sber"
+    model_name = "wikiart_16384"
     device = "cuda"
 
     vqgan_model = load_model(model_name=model_name, ).to(device)
