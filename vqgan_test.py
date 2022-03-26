@@ -4,13 +4,14 @@ import torch
 import PIL
 import PIL.Image
 import numpy as np
+import torchvision
 
 from taming.modeling_utils import load_model
 
 
 def generation(img: PIL.Image, ):
     # model_name = "sber"
-    model_name = "wikiart_16384"
+    model_name = "coco"
     device = "cuda"
 
     vqgan_model = load_model(model_name=model_name, ).to(device)
@@ -37,12 +38,13 @@ def generation(img: PIL.Image, ):
     z = z.to(device)
 
     z = vqgan_model.post_quant_conv(z)
-    z = torch.cat(
-        [z, z],
-        axis=1,
-    )
+    # z = torch.cat(
+    #     [z, z],
+    #     axis=1,
+    # )
     img_rec = vqgan_model.decoder(z)
     img_rec = (img_rec.clip(-1, 1) + 1) / 2
+    torchvision.transforms.ToPILImage()(img_rec[0])
 
 
 def test():
