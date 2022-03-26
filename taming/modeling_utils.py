@@ -17,7 +17,18 @@ VQGAN_CKPT_DICT = {
     "openimages-8192":
     r"https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
     "sber": r"https://www.dropbox.com/s/9tzfjsuf78xg4g9/sber.ckpt?dl=1",
-    "wikiart_16384": r"http://eaidata.bmk.sh/data/Wikiart_16384/wikiart_f16_16384_8145600.ckpt",
+    "wikiart_16384":
+    r"http://eaidata.bmk.sh/data/Wikiart_16384/wikiart_f16_16384_8145600.ckpt",
+    "coco": r'https://dl.nmkd.de/ai/clip/coco/coco.ckpt',
+    "faceshq":
+    r'https://app.koofr.net/content/links/a04deec9-0c59-4673-8b37-3d696fe63a5d/files/get/last.ckpt?path=%2F2020-11-13T21-41-45_faceshq_transformer%2Fcheckpoints%2Flast.ckpt',
+    "wikiart_1024":
+    r'https://github.com/Eleiber/VQGAN-Mirrors/releases/download/0.0.1/wikiart_1024.ckpt',
+    "wikiart_7mil":
+    r'http://batbot.tv/ai/models/VQGAN/WikiArt_augmented_Steps_7mil_finetuned_1mil.ckpt',
+    "sflckr":
+    r'https://heibox.uni-heidelberg.de/d/73487ab6e5314cb5adba/files/?p=%2Fcheckpoints%2Flast.ckpt&dl=1',
+    "lstage": r'http://batbot.tv/ai/models/VQGAN/coco_first_stage.ckpt',
 }
 VQGAN_CONFIG_DICT = {
     "imagenet-16384":
@@ -26,7 +37,18 @@ VQGAN_CONFIG_DICT = {
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/openimages-8192.yaml",
     "sber":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/sber.yaml",
-    "wikiart_16384": r"http://eaidata.bmk.sh/data/Wikiart_16384/wikiart_f16_16384_8145600.yaml",
+    "wikiart_16384":
+    r"http://eaidata.bmk.sh/data/Wikiart_16384/wikiart_f16_16384_8145600.yaml",
+    "coco": r'https://dl.nmkd.de/ai/clip/coco/coco.yaml',
+    "faceshq":
+    r'https://drive.google.com/uc?export=download&id=1fHwGx_hnBtC8nsq7hesJvs-Klv-P0gzT',
+    "wikiart_1024":
+    r'https://github.com/Eleiber/VQGAN-Mirrors/releases/download/0.0.1/wikiart_1024.yaml',
+    "wikiart_7mil":
+    r'http://batbot.tv/ai/models/VQGAN/WikiArt_augmented_Steps_7mil_finetuned_1mil.yaml',
+    "sflckr":
+    r'https://heibox.uni-heidelberg.de/d/73487ab6e5314cb5adba/files/?p=%2Fconfigs%2F2020-11-09T13-31-51-project.yaml&dl=1',
+    "lstage": r'http://batbot.tv/ai/models/VQGAN/coco_first_stage.yaml',
 }
 
 
@@ -49,6 +71,7 @@ def load_vqgan(
     """
     if "GumbelVQ" in config.model.target:
         model = GumbelVQ(**config.model.params)
+
     else:
         model = VQModel(**config.model.params)
 
