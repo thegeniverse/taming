@@ -69,17 +69,40 @@ def load_vqgan(
         VQModel: 
             loaded VQGAN model.
     """
-    if "GumbelVQ" in config.model.target:
+    if config.model.target == 'taming.models.vqgan.VQModel':
+        model = VQModel(**config.model.params)
+        model.eval().requires_grad_(False)
+        model.init_from_ckpt(ckpt_path)
+
+    elif config.model.target == 'taming.models.cond_transformer.Net2NetTransformer':
+        parent_model = Net2NetTransformer(**config.model.params)
+        parent_model.eval().requires_grad_(False)
+        parent_model.init_from_ckpt(ckpt_path)
+        model = parent_model.first_stage_model
+
+    elif config.model.target == 'taming.models.vqgan.GumbelVQ':
         model = GumbelVQ(**config.model.params)
+        print(config.model.params)
+        model.eval().requires_grad_(False)
+        model.init_from_ckpt(ckpt_path)
 
     else:
-        model = VQModel(**config.model.params)
+        raise ValueError(f'unknown model type: {config.model.target}')
+    del model.loss
 
-    if ckpt_path is not None:
-        state_dict = torch.load(ckpt_path, map_location="cpu")["state_dict"]
-        _missing, _unexpected = model.load_state_dict(state_dict, strict=False)
+    return model
 
-    return model.eval()
+    # if "GumbelVQ" in config.model.target:
+    #     model = GumbelVQ(**config.model.params)
+
+    # else:
+    #     model = VQModel(**config.model.params)
+
+    # if ckpt_path is not None:
+    #     state_dict = torch.load(ckpt_path, map_location="cpu")["state_dict"]
+    #     _missing, _unexpected = model.load_state_dict(state_dict, strict=False)
+
+    # return model.eval()
 
 
 def load_config(
