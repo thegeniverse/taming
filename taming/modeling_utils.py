@@ -12,7 +12,7 @@ from taming.models.cond_transformer import Net2NetTransformer
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 VQGAN_CKPT_DICT = {
-    "imagenet-16384":
+    "imagenet_16384":
     r"https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
     "openimages-8192":
     r"https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
@@ -31,7 +31,7 @@ VQGAN_CKPT_DICT = {
     "lstage": r'http://batbot.tv/ai/models/VQGAN/coco_first_stage.ckpt',
 }
 VQGAN_CONFIG_DICT = {
-    "imagenet-16384":
+    "imagenet_16384":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/imagenet-16384.yaml",
     "openimages-8192":
     r"https://raw.githubusercontent.com/thegeniverse/taming/master/configs/openimages-8192.yaml",
@@ -129,7 +129,7 @@ def load_config(
 
 
 def download_model(
-    model_name: str = "imagenet-16384",
+    model_name: str = "imagenet_16384",
     force_download: bool = False,
 ):
     modeling_dir = os.path.dirname(os.path.abspath(__file__))
@@ -177,7 +177,7 @@ def download_model(
     return modeling_config_path, modeling_ckpt_path
 
 
-def load_model(model_name: str = "imagenet-16384", ):
+def load_model(model_name: str = "imagenet_16384", ):
     logging.info(f"Loading {model_name}")
 
     modeling_config_path, modeling_ckpt_path = download_model(
