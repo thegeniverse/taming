@@ -44,7 +44,7 @@ def generation(img: PIL.Image, ):
     # )
     img_rec = vqgan_model.decoder(z)
     img_rec = (img_rec.clip(-1, 1) + 1) / 2
-    torchvision.transforms.ToPILImage()(img_rec[0])
+    torchvision.transforms.ToPILImage()(img_rec[0]).save(f"{model_name}.png")
 
 
 def test():
